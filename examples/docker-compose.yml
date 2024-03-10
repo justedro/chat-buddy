@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  buddy:
+    image: ghcr.io/justedro/chat-buddy:master
+    restart: always
+    env_file:
+      - .env
