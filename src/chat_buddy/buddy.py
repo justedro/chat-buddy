@@ -38,7 +38,7 @@ class ChatBuddy:
         # create a chat completion
         start_time = time.time()
         completion = self.client.chat.completions.create(
-            model="mistral-openorca",
+            model="saiga-mistral-7b",
             # temperature=0.5,
             messages=messages,
             seed=random.randint(0, 1000000),
