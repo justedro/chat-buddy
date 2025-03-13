@@ -15,11 +15,11 @@ logging.basicConfig(
 
 
 class ChatMessageHandler:
-    def __init__(self, api_url: str, api_token: str):
-        self.api_url = api_url
-        self.api_token = api_token
+    def __init__(self, api_url: str, api_token: str, model: str):
+        #self.api_url = api_url
+        #self.api_token = api_token
 
-        self.buddy = ChatBuddy(api_url, api_token)
+        self.buddy = ChatBuddy(api_url, api_token, model)
         self.last_typing_time = {}
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -126,14 +126,14 @@ class ChatMessageHandler:
         return not ignore
 
 
-def main(tg_token: str, api_url, api_token):
+def main(tg_token: str, api_url, api_token, model):
     builder = ApplicationBuilder()
     builder.token(tg_token)
     # builder.
 
     application = builder.build()
 
-    handler_service = ChatMessageHandler(api_url, api_token)
+    handler_service = ChatMessageHandler(api_url, api_token, model)
 
     start_handler = CommandHandler('start', handler_service.start)
     reset_handler = CommandHandler('reset', handler_service.reset)
@@ -153,5 +153,6 @@ if __name__ == '__main__':
     tg_token = os.environ.get('TG_TOKEN')
     api_url = os.environ.get('API_URL')
     api_token = os.environ.get('API_TOKEN', 'sk-xxx')
+    model = os.environ.get('MODEL', 'mistral-openorca')
 
-    main(tg_token, api_url, api_token)
+    main(tg_token, api_url, api_token, model)

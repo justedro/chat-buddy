@@ -7,11 +7,12 @@ from typing import List
 
 
 class ChatBuddy:
-    def __init__(self, api_url: str, api_token):
+    def __init__(self, api_url: str, api_token, model):
         os.environ.setdefault("OPENAI_API_KEY", "sk-xxx")  # pycharm debugger fix
 
         from openai import OpenAI
         self.client = OpenAI(base_url=api_url, api_key=api_token, max_retries=0)
+        self.model = model
 
     def ask(self, message: str, questions: List[str], answers: List[str]) -> Iterator[str]:
         """
@@ -38,7 +39,7 @@ class ChatBuddy:
         # create a chat completion
         start_time = time.time()
         completion = self.client.chat.completions.create(
-            model="saiga-mistral-7b",
+            model=self.model,
             # temperature=0.5,
             messages=messages,
             seed=random.randint(0, 1000000),
