@@ -54,8 +54,8 @@ class ChatBuddy:
             if message is not None:
                 yield message
 
-            full_length += len(message)
-            if full_length > 4000:
+            full_length += 0 if message is None else len(message)
+            if full_length > 8000:
                 logging.warning(f"Terminating response stream after {full_length} characters.")
                 completion.close()
                 break
